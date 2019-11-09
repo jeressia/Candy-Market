@@ -1,0 +1,44 @@
+.Inventory{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    
+    .buttonsDiv{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .results{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        align-self: center;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    button.showAndHide{
+        margin: 0px 10px;
+        width: 145.38px;
+        flex-grow: .5;
+    }
+
+    .singleCandy{
+        display: flex;
+        justify-content: space-between;
+        margin: 5px;
+        align-items: center;
+        padding: 5px;
+        font-size: 10px;
+
+        button{
+            font-size: 10px;
+        }
+    }
+}
