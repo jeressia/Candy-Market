@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import getValues from '../../helpers/data/apiRequests';
-
-import DeleteInventory from './DeleteInventory';
-import './Inventory.scss';
+import apiRequests from '../../helpers/data/apiRequests';
 import AddInventory from './AddInventory';
+import CandyCard from './CandyCard';
+
+import './Inventory.scss';
+
 
 export class Inventory extends Component {
     state = {
@@ -12,7 +13,7 @@ export class Inventory extends Component {
 
  
     getValues = () => {
-        getValues().then((values) => {
+        apiRequests.getValues().then((values) => {
           let myNewValues = [...values];
           const showHideButton = document.querySelector('.showAndHide');
           const results = document.querySelector('.results');
@@ -32,19 +33,18 @@ export class Inventory extends Component {
         })
       }
     
-      showCandyInventory = () => {
-        const myCandy = [...this.state.candyInventory];
-      return myCandy.map((candy) => 
-          <div className= "singleCandy col-3">
-            <div>{candy.name}</div>
-            <div className="eatButton">
-            <DeleteInventory candy={myCandy}/>
-            </div>
-         </div>
-    )
-      }
+      refreshCandy = () => {
+        apiRequests.getValues().then((candy) => {
+          let candies = [...candy];
+          this.setState({candyInventory: candies});
+        }
+        )};
 
     render() {
+        const candy = [...this.state.candyInventory];
+        const allCandy = candy.map((candy) => 
+          <CandyCard key={candy.id} candy ={candy} refreshCandy = {this.refreshCandy}/>
+        );
       const candyInventory = this.state.candyInventory;
         return (
             <div className="Inventory">
@@ -52,16 +52,19 @@ export class Inventory extends Component {
                     <h5>Candy Inventory</h5>
                     <div className="buttonsDiv">
                     <button className=" btn btn-info showAndHide" onClick={this.getValues}>Show All Candy</button>
-                    <AddInventory candy={candyInventory}/>
+                    <AddInventory candy={candyInventory} refreshCandy = {this.props.refreshCandy}/>
                     </div>
-                    <div className="results hide col-12">
-                    {this.showCandyInventory()}
-                    </div>
-                    
-                </div>
-            </div>
+                      <div className="container col-4">
+                      <div className="row">
+                          <div id="results" className="results hide">
+                          { allCandy }
+                          </div>
+                        </div> 
+                      </div>
+                      </div> 
+                      </div> 
         )
     }
 }
 
-export default Inventory
+export default Inventory;

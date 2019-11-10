@@ -11,4 +11,12 @@ const getValues = () => new Promise((resolve, reject) => {
       });
   });
 
-  export default getValues;
+  const DeleteInventory = candyId => axios.delete(`${baseUrl}/candy/${candyId}/eat`);
+
+  const postCandy = newCandy => axios.post(`${baseUrl}/candy`, newCandy);
+
+  export default {
+    getValues,
+    DeleteInventory,
+    postCandy
+  };

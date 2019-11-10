@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ShowInventory from '../Inventory/ShowInventory';
+import ShowInventory from '../Inventory/Inventory';
 import './Home.scss';
 
 class Home extends Component {
